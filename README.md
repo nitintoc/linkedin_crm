@@ -16,6 +16,7 @@ Tool for LinkedIn outreach.
 ```powershell
 python fetch_linkedin.py
 ```
+NOTE: IT TAKES FEW HOURS SOMETIMES FOR THE TOKEN TO GET AUTHENTICATED. TILL THEN, PYTHON SCRIPT RETURNS EMPTY JSON.
 
 ## What it does
 
