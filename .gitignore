@@ -1,0 +1,13 @@
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+
+# Personal LinkedIn data written by fetch_linkedin.py
+linkedin_raw.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
