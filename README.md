@@ -1,21 +1,33 @@
 # linkedin_crm
-Tool for linkedin outreach 
 
+Tool for LinkedIn outreach.
 
-How to use the app?
+## How to use
 
-Go to the LinkedIn Developer portal (https://developer.linkedin.com/) and click Create app.
-Name it something like outreach_analytics.
-In the LinkedIn Page field, choose the Member Data Portability (Member) Default Company instead of Lehrling.
-Upload any logo and accept the terms.
-In the new app’s Products tab, request Member Data Portability API (Member) and accept the terms.
-In the Developer portal, go to Docs and tools → OAuth Token Tools, then click Create token. Select the app that has the product, choose the r_dma_portability_self_serve scope, click Request access token, and consent when LinkedIn asks. Only members located in the EEA or Switzerland can generate this token. 
-Put the token in an environment variable rather than in the file: export LINKEDIN_TOKEN="..." on macOS or Linux, or set LINKEDIN_TOKEN=... in Windows cmd.
-Run python fetch_linkedin.py.
+1. Go to the [LinkedIn Developer portal](https://developer.linkedin.com/) and click **Create app**.
+2. Name it something like `outreach_analytics`.
+3. In the **LinkedIn Page** field, choose the **Member Data Portability (Member) Default Company** instead of Lehrling.
+4. Upload any logo and accept the terms.
+5. In the new app’s **Products** tab, request **Member Data Portability API (Member)** and accept the terms.
+6. In the Developer portal, go to **Docs and tools → OAuth Token Tools**, then click **Create token**. Select the app that has the product, choose the `r_dma_portability_self_serve` scope, click **Request access token**, and consent when LinkedIn asks. Only members located in the EEA or Switzerland can generate this token.
+7. Copy `.env.example` to `.env` and set `LINKEDIN_TOKEN` there. `.env` is gitignored.
+8. Run:
 
-What it does: it pulls three domains, INVITATIONS, CONNECTIONS and INBOX. The endpoint only accepts the version header 202312, and it pages through results until LinkedIn says no data is left. It saves everything to linkedin_raw.json on your machine and prints only the field names found in each domain
+```powershell
+python fetch_linkedin.py
+```
 
-Use a prompt like this to analyze the json to extract insights:
+## What it does
+
+The script pulls three domains: `INVITATIONS`, `CONNECTIONS`, and `INBOX`. The endpoint only accepts the version header `202312`, and the script pages through results until LinkedIn says no data is left. It saves everything to `linkedin_raw.json` on your machine and prints only the field names found in each domain.
+
+`linkedin_raw.json` is gitignored, so it is not pushed to GitHub.
+
+## Analyze the export
+
+Use a prompt like this to extract insights from the JSON:
+
+```text
 Analyze my LinkedIn cold outreach from linkedin_raw.json in this project. The file is local and gitignored. Read it yourself. Do not invent numbers, and do not print message bodies or email addresses in the summary.
 
 The file has three lists:
@@ -59,3 +71,4 @@ Report:
 4. State the date range actually present in INVITATIONS versus CONNECTIONS, so older connections are not treated as outreach from this export.
 
 Sort the person table by invited_at, newest first. Give the weekly and monthly tables first, then the person table.
+```
